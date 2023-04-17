@@ -1,0 +1,47 @@
+ 1. # Caesar Cipher
+ 2. # https://www.nostarch.com/crackingcodes/ (BSD Licensed)
+ 3.
+ 4. import pyperclip
+ 5.
+ 6. # The string to be encrypted/decrypted:
+ 7. message = 'This is my secret message.'
+ 8.
+ 9. # The encryption/decryption key:
+10. key = 13
+11.
+12. # Whether the program encrypts or decrypts:
+13. mode = 'encrypt' # Set to either 'encrypt' or 'decrypt'.
+14.
+15. # Every possible symbol that can be encrypted:
+16. SYMBOLS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz12345
+      67890 !?.'
+17.
+18. # Store the encrypted/decrypted form of the message:
+19. translated = ''
+20.
+21. for symbol in message:
+22.     # Note: Only symbols in the SYMBOLS string can be
+          encrypted/decrypted.
+23.     if symbol in SYMBOLS:
+24.         symbolIndex = SYMBOLS.find(symbol)
+25.
+26.         # Perform encryption/decryption:
+27.         if mode == 'encrypt':
+28.             translatedIndex = symbolIndex + key
+29.         elif mode == 'decrypt':
+30.             translatedIndex = symbolIndex - key
+31.
+32.         # Handle wraparound, if needed:
+33.         if translatedIndex >= len(SYMBOLS):
+34.             translatedIndex = translatedIndex - len(SYMBOLS)
+35.         elif translatedIndex < 0:
+36.             translatedIndex = translatedIndex + len(SYMBOLS)
+37.
+38.         translated = translated + SYMBOLS[translatedIndex]
+39.     else:
+40.         # Append the symbol without encrypting/decrypting:
+41.         translated = translated + symbol
+42.
+43. # Output the translated string:
+44. print(translated)
+45. pyperclip.copy(translated)
